@@ -5,7 +5,7 @@ Recognition
    current directory i.e where your python script is located.
 -  make sure ``speakers.txt`` is not empty.
 
- Use newly added file in current directory for recognition:
+Use newly added file in current directory for recognition:
 
 .. code:: python
 
