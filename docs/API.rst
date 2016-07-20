@@ -1,5 +1,5 @@
-**Module:** recognition
-**class:** SpeakerRecognizer
+* **Module:** recognition
+* **class:** SpeakerRecognizer
 
 Module contains speaker training and identification functions
 
@@ -22,11 +22,13 @@ speakers.txt if not exist.
 Find speakername in the file, if found, append filename at the
 end of it otherwise create a new entry.
 **Parameters:**
+
  * **speakername** (*str*) -- speaker name for training
  * **filename** (*str*) -- filename of audio file.
 
 **Raises:**
- IOError
+
+ * **IOError**
 
 **_is_good_wave(filename)**
 
