@@ -137,4 +137,4 @@ project.
 
 LICENSE
 -------
-[MIT](./LICENSE)
+`MIT <./LICENSE>`__
