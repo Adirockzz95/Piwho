@@ -24,7 +24,7 @@ This will overwrite original file.
 -  Every time you train an existing model with a new file, model gets
    updated.
 
- Use newly added file in current directory for training:
+Use newly added file in current directory for training:
 
 .. code:: python
 
@@ -94,7 +94,9 @@ program which records audio and trains the model.
         # train model with the newly recorded file
         recog.train_new_data()
 
- Automatic training ------------------
+
+Automatic training 
+------------------
 
 Automatic Training is used when you're recording files periodically.
 This is done by creating a service that monitors specified directory and
