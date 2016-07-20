@@ -151,12 +151,12 @@ Modules
 -----------
 
 -  master branch:
--  `Training module <../blob/master/examples/jasper/mtraining.py>`__
--  `Recognition module <../blob/master/examples/jasper/mrecog.py>`__
+-  `Training module <examples/jasper/mtraining.py>`__
+-  `Recognition module <examples/jasper/mrecog.py>`__
 -  `Gender detection
-   module <../blob/master/examples/jasper/mgenderdetect.py>`__
+   module <examples/jasper/mgenderdetect.py>`__
 -  dev branch:
--  `Training module <../blob/master/examples/jasper/devtrain.py>`__
--  `Recognition module <../blob/master/examples/jasper/devrecog.py>`__
+-  `Training module <examples/jasper/devtrain.py>`__
+-  `Recognition module <examples/jasper/devrecog.py>`__
 -  `Gender detection
-   module <../blob/master/examples/jasper/devgender.py>`__
+   module <examples/jasper/devgender.py>`__
