@@ -147,7 +147,8 @@ save the file, run Jasper and execute any module. You should see a
 ``.wav`` file inside ``recordings`` folder. Now you're ready to use
 recognition library with jasper.
 
- ### Modules -----------
+Modules
+-----------
 
 -  master branch:
 -  `Training module <../blob/master/examples/jasper/mtraining.py>`__
