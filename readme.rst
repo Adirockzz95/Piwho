@@ -133,3 +133,8 @@ project.
    manual <http://marf.sourceforge.net/docs/marf/0.3.0.5/report.pdf>`__
 -  `LIUM
    site <http://www-lium.univ-lemans.fr/diarization/doku.php/welcome>`__
+
+
+LICENSE
+-------
+[MIT](./LICENSE)
