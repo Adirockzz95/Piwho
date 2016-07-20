@@ -150,13 +150,4 @@ recognition library with jasper.
 Modules
 -----------
 
--  master branch:
--  `Training module <examples/jasper/mtraining.py>`__
--  `Recognition module <examples/jasper/mrecog.py>`__
--  `Gender detection
-   module <examples/jasper/mgenderdetect.py>`__
--  dev branch:
--  `Training module <examples/jasper/devtrain.py>`__
--  `Recognition module <examples/jasper/devrecog.py>`__
--  `Gender detection
-   module <examples/jasper/devgender.py>`__
+See ``examples/jasper/`` directory
