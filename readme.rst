@@ -5,7 +5,7 @@ Piwho is python wrapper around `MARF <http://marf.sourceforge.net/>`__
 speaker recognition framework for the Raspberry pi and other SBCs. With
 the Piwho you can implement speaker recognition in your projects.
 
-**Blink exmaple**
+**Blink example**
 
 .. code:: python
 
