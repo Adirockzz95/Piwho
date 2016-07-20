@@ -5,52 +5,51 @@ piwho.recognition module
 Module contains speaker training and identification functions
 
 **class piwho.recognition.SpeakerRecognizer(dirpath=None)**
-   Bases: ``object``
+Bases: ``object``
 
+| This class holds data and functions for speaker training and
+  recognition.
 
-  | This class holds data and functions for speaker training and
-   recognition.
-
-   **_convert_file(src, dest=None)**
+**_convert_file(src, dest=None)**
    
-   | convert wav into 8khz rate
+| convert wav into 8khz rate
 
-   **_create_entry(speakername, filename)**
+**_create_entry(speakername, filename)**
 
-   |  Update the speakers.txt for each new audio file. Create
+|  Update the speakers.txt for each new audio file. Create
       speakers.txt if not exist.
 
-   |  Find speakername in the file, if found, append filename at the
+|  Find speakername in the file, if found, append filename at the
       end of it otherwise create a new entry.
 
-    :Parameters:
+   :Parameters:
       * **speakername** (*str*) -- speaker name for training
 
       * **filename** (*str*) -- filename of audio file.
 
-    :Raises:
+   :Raises:
       IOError
 
-   **_is_good_wave(filename)**
+**_is_good_wave(filename)**
 
-      check if wav is in correct format for MARF.
+|  check if wav is in correct format for MARF.
 
-   **_start_subprocess(commandline)**
+**_start_subprocess(commandline)**
 
-   |  Start a subprocess with the given commandline and wait for
-      termination.
+|  Start a subprocess with the given commandline and wait for
+   termination.
 
-    :Parameters:
+   :Parameters:
       **commandline** (*str*) -- commandline string
 
-    :Returns:
+   :Returns:
       output from stdout, stderr
 
-    :Return_type: list
+   :Return_type: list
 
-   **get_recently_added_file()**
+**get_recently_added_file()**
 
-   return recently added filename from the directory passed in
+ | Return recently added filename from the directory passed in
    constructor.
 
       :Returns:
