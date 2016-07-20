@@ -3,7 +3,7 @@
 
 Module contains speaker training and identification functions
 
-**class piwho.recognition.SpeakerRecognizer(dirpath=None)**
+**piwho.recognition.SpeakerRecognizer(dirpath=None)**
 
 Bases: ``object``
 
@@ -16,50 +16,51 @@ convert wav into 8khz rate
 
 **_create_entry(speakername, filename)**
 
-Update the speakers.txt for each new audio file. Create
-speakers.txt if not exist.
+| Update the speakers.txt for each new audio file. Create
+  speakers.txt if not exist.
 
-Find speakername in the file, if found, append filename at the
-end of it otherwise create a new entry.
+| Find speakername in the file, if found, append filename at the
+  end of it otherwise create a new entry.
+
 **Parameters:**
-
  * **speakername** (*str*) -- speaker name for training
  * **filename** (*str*) -- filename of audio file.
 
 **Raises:**
-
- * **IOError**
+ * IOError
 
 **_is_good_wave(filename)**
 
-|  check if wav is in correct format for MARF.
+check if wav is in correct format for MARF.
+
 
 **_start_subprocess(commandline)**
 
-|  Start a subprocess with the given commandline and wait for
-   termination.
+Start a subprocess with the given commandline and wait for
+termination.
 
-   :Parameters:
-      **commandline** (*str*) -- commandline string
+**Parameters:**
+ * **commandline** (*str*) -- commandline string
 
-   :Returns:
-      output from stdout, stderr
+**Returns:**
+  output from stdout, stderr
 
-   :Return_type: list
+**Return type:** list
+
 
 **get_recently_added_file()**
 
- | Return recently added filename from the directory passed in
-   constructor.
+ Return recently added filename from the directory passed in
+ constructor.
 
-      :Returns:
-         directory path of the file
+**:Returns:**
+  directory path of the file
 
-      :Return type:
-         string
+**Return type:**
+  string
 
-      :Raises:
-         ValueError
+**Raises:**
+  ValueError
 
    **get_speaker_scores()**
 
