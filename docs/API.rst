@@ -1,34 +1,32 @@
-
-piwho.recognition module
-------------------------
+**Module:** recognition
+**class:** SpeakerRecognizer
 
 Module contains speaker training and identification functions
 
 **class piwho.recognition.SpeakerRecognizer(dirpath=None)**
+
 Bases: ``object``
 
 | This class holds data and functions for speaker training and
   recognition.
 
 **_convert_file(src, dest=None)**
-   
-| convert wav into 8khz rate
+
+convert wav into 8khz rate
 
 **_create_entry(speakername, filename)**
 
-|  Update the speakers.txt for each new audio file. Create
-      speakers.txt if not exist.
+Update the speakers.txt for each new audio file. Create
+speakers.txt if not exist.
 
-|  Find speakername in the file, if found, append filename at the
-      end of it otherwise create a new entry.
+Find speakername in the file, if found, append filename at the
+end of it otherwise create a new entry.
+**Parameters:**
+ * **speakername** (*str*) -- speaker name for training
+ * **filename** (*str*) -- filename of audio file.
 
-   :Parameters:
-      * **speakername** (*str*) -- speaker name for training
-
-      * **filename** (*str*) -- filename of audio file.
-
-   :Raises:
-      IOError
+**Raises:**
+ IOError
 
 **_is_good_wave(filename)**
 
