@@ -9,7 +9,7 @@ before_install:
         - sox
 
 install:
-   - pip install -r requirements.txt
+   - pip install --user -r requirements.txt
 
 script:
-  - f [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then python -m unittest discover; fi  
+  - f [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then python -m unittest discover; fi
