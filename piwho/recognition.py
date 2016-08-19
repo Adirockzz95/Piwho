@@ -256,7 +256,7 @@ class SpeakerRecognizer(object):
         :return: a dictionary
         :rtype: dict
         """
-        strs = [str(self.scores[i]).strip().split(":")[1]
+        strs = [str(self.scores[i]).strip().split(":")[1].replace("\\n'","")
                 for i, x in enumerate(self.scores)]
 
         names = self.get_speakers()
