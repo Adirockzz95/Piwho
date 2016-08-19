@@ -159,7 +159,7 @@ class SpeakerRecognizer(object):
             # sanitize string
             data = (''.join(str(x) for x in reply))
             fi = data.encode('ascii', 'ignore').decode('unicode_escape')
-            print(re.sub("[b']", '', fi))
+            print((re.sub("[b']", '', fi)))
 
     def identify_speaker(self, audiofile=None):
         """
@@ -212,7 +212,7 @@ class SpeakerRecognizer(object):
                 # sanitize string
                 data = (''.join(str(x) for x in name))
                 fi = data.encode('ascii', 'ignore').decode('unicode_escape')
-                print(re.sub("[b']", '', fi))
+                print((re.sub("[b']", '', fi)))
 
         # if audiofile is passed
         else:
@@ -237,7 +237,7 @@ class SpeakerRecognizer(object):
             else:
                 data = (''.join(str(x) for x in name))
                 fi = data.encode('ascii', 'ignore').decode('unicode_escape')
-                print(re.sub("[b']", '', fi))
+                print((re.sub("[b']", '', fi)))
 
 
     def get_speaker_scores(self):

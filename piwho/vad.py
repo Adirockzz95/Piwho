@@ -50,7 +50,7 @@ def record(threshold=THRESHOLD, silence=SILENCE_LIMIT):
                     input=True,
                     frames_per_buffer=CHUNK)
 
-    print "* Listening mic. "
+    print ("* Listening mic. ")
     frames = []
     cur_data = ''
     rel = RATE/CHUNK
@@ -64,11 +64,11 @@ def record(threshold=THRESHOLD, silence=SILENCE_LIMIT):
         window.append(math.sqrt(abs(audioop.avg(cur_data, 4))))
         if(sum([x > THRESHOLD for x in window]) > 0):
             if(not start):
-                print "recording.."
+                print ("recording..")
                 start = True
             frames.append(cur_data)
         elif start is True:
-            print "Finished"
+            print ("Finished")
             save_audio(list(prev_audio) + frames, p)
             start = False
             window = deque(maxlen=silence * rel)
@@ -78,7 +78,7 @@ def record(threshold=THRESHOLD, silence=SILENCE_LIMIT):
         else:
             prev_audio.append(cur_data)
 
-    print "Done recording"
+    print ("Done recording")
     stream.close()
     p.terminate()
 
