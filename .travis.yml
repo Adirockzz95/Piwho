@@ -6,9 +6,6 @@ python:
   - "3.4"
   - "3.5"
 
-before_install:
-  - sudo apt-get install sox
-
 install:
   - pip install -r requirements.txt
 
@@ -19,4 +16,3 @@ script:
   - if [[ $TRAVIS_PYTHON_VERSION == '3.4' ]]; then python -m unittest discover; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '3.5' ]]; then python -m unittest discover; fi
 
-sudo: required
