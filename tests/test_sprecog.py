@@ -206,7 +206,7 @@ class TestSpeakerRecognition(unittest.TestCase):
 
     def test_no_wav_file_found_exception_identify(self):
         recog = recognition.SpeakerRecognizer('/dev/null/')
-        self.assertRaises(ValueError, recog.identify_speaker)
+        self.assertRaises(IOError, recog.identify_speaker)
 
     def test_no_speaker_db_found(self):
         recog = recognition.SpeakerRecognizer()
