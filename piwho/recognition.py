@@ -188,7 +188,7 @@ class SpeakerRecognizer(object):
 
         #check if there are minimum two speakers in database
             if( len(self.get_speakers()) < 2 ):
-                raise IndexError("Insufficient speakers in database.(Required 2 found 1)")
+                raise IndexError("Insufficient speakers in database.")
             # add trailing backslash to path
             expand = os.path.join(self.dirpath, '')
             try:
