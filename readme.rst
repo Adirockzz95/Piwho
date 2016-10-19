@@ -12,3 +12,5 @@ Planned changes:
  - Use marf version 0.3.0.6: Done
  - Return a list of identified speakers intead of single speaker: Done
  - Use audioop pkg for wave resampling instead of SoX: Done
+
+ Note: If you get an error 'java unsupported major.minor version 52.0' then upgrade your JDK to version 1.7 & up.
