@@ -26,7 +26,7 @@ class TestSpeakerRecognition(unittest.TestCase):
         self.assertEqual(recog.dirpath, os.getcwd())
         self.assertEqual(recog.debug, False)
         self.assertEqual(recog.filepath, None)
-        self.assertEqual(recog.feature, ' -lpc')
+        self.assertEqual(recog.feature, ' -endp -lpc -cheb')
         self.assertEqual(recog.last_recognized_file, None)
         self.assertEqual(recog.last_trained_file, None)
 
