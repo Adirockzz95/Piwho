@@ -65,7 +65,7 @@ class SpeakerRecognizer(object):
         self.scores = []
 
         #: set feature for MARF training and recognition
-        self.feature = ' -lpc'
+        self.feature = ' -endp -lpc -cheb'
 
     def train_new_data(self, filepath=None, speakername=None):
         """
