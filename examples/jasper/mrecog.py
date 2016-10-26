@@ -8,8 +8,9 @@ WORDS = ["GOOD","MORNING"]
 
 def greetings():
     recog = recognition.SpeakerRecognizer('/path/to/recordings/')
+    name = []
     name = recog.identify_speaker()
-    return name
+    return name[0]
 
 def handle(text, mic, profile):
     speaker = greetings()

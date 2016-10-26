@@ -11,6 +11,7 @@ WORDS = ["GOOD","MORNING"]
 
 def sayHello(mic):
     recog = recognition.SpeakerRecognizer('/home/pi/jasper/recordings/')
+    name = []
     name = recog.identify_speaker()
 
     # I have trained the model with 30 voice clips with lable 'Aditya'
