@@ -11,7 +11,7 @@ Training model
      Audio Sample Size: 16 bit
      Channels: 1 (mono)
 
-If not then the file will be converted into required format using SoX.
+If not then the file will be converted into above format.
 This will overwrite original file.
 
 -  Running the training program for the first time will create a
