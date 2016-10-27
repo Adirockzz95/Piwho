@@ -5,7 +5,8 @@ Piwho is python wrapper around `MARF <http://marf.sourceforge.net/>`__
 speaker recognition framework for the Raspberry pi and other SBCs. With
 the Piwho you can implement speaker recognition in your projects.
 
-.. image :: https://travis-ci.org/Adirockzz95/Piwho.svg?branch=master
+.. image:: https://travis-ci.org/Adirockzz95/Piwho.svg?branch=v1.3.0
+    :target: https://travis-ci.org/Adirockzz95/Piwho
 
 |
 
@@ -16,7 +17,7 @@ the Piwho you can implement speaker recognition in your projects.
 
     import RPi.GPIO as GPIO
     import time
-    from piwho import recognition
+    from piwho import recognition, vad
 
     def blink(pin):
         GPIO.setmode(GPIO.BOARD)
@@ -29,9 +30,10 @@ the Piwho you can implement speaker recognition in your projects.
             time.sleep(1)
        
     if __name__ == "__main__":
-       recog = recognition.SpeakerRecognizer()
+       recog = recognition.SpeakerRecognizer('./')
+       vad.record()
        name = recog.identify_speaker()
-       if name == 'Ankit':
+       if name[0] == 'Abhishek':
            blink(11)
 
 Tested on
@@ -52,18 +54,12 @@ Update the Pi
     $ sudo apt-get update
     $ sudo apt-get upgrade
 
-You need to have JDK (min version: 1.6) installed on your Pi.
+You need to have JDK (min version: 1.7) installed on your Pi.
 
 .. code:: bash
 
     # verify jdk is installed
     $ java -version
-
-SoX is required for wav resampling
-
-.. code:: bash
-
-    $ sudo apt-get install sox
 
 Pyaudio is required to run audio recording script. (Optional)
 
@@ -71,7 +67,7 @@ Pyaudio is required to run audio recording script. (Optional)
 
     # Install portaudio
     $ sudo apt-get install portaudio19-dev
-    # Install python2.7-dev
+    # Install python dev package
     $ sudo apt-get install python2.7-dev
     # Install pyaudio
     $ pip install pyaudio 
@@ -87,7 +83,7 @@ or clone the project from github
 .. code:: bash
 
     $ git clone https://www.github.com/Adirockzz95/Piwho.git
-    $ cd piwho
+    $ cd Piwho
     $ python setup.py install
 
 Tests
@@ -97,7 +93,6 @@ Tests are implemented using unittest framework:
 
 .. code:: bash
 
-    $ sudo apt-get install sox
     $ pip install -r requirements.txt
     $ python -m unittest discover -v ./tests
 
@@ -108,18 +103,16 @@ Documentation
 -  `Recognition <docs/recognition.rst>`__\ 
 -  `Gender detection <docs/gender_piwho.rst>`__\ 
 -  `integrating with Jasper <docs/jasper.rst>`__
--  `API <docs/API.rst>`__
 
 Tips / Caveats
 --------------
 
--  Even though it works on Raspberry Pi, it is relatively slow. :(
 -  Recognition/Training time depends on the length of an audio file.
 -  If possible overclock your Pi- use Turbo mode.
 -  Give maxmium RAM to CPU.
 -  Read `MARF
    manual <http://marf.sourceforge.net/docs/marf/0.3.0.5/report.pdf>`__
-   to know how the MARF works.
+   to know how the it works.
 -  Recognition speed is directly proportional to the CPU power.
 
 Misc
@@ -134,7 +127,7 @@ project.
 -  `ALIZE <http://mistral.univ-avignon.fr/>`__
 -  `Shout <http://shout-toolkit.sourceforge.net/use_case_diarization.html>`__
 -  `MARF
-   manual <http://marf.sourceforge.net/docs/marf/0.3.0.5/report.pdf>`__
+   manual <http://marf.sourceforge.net/docs/marf/0.3.0.6/report.pdf>`__
 -  `LIUM
    site <http://www-lium.univ-lemans.fr/diarization/doku.php/welcome>`__
 

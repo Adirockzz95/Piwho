@@ -16,8 +16,7 @@ except ImportError:
 CURRENT_DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 DATA_DIR_PATH = os.path.join(CURRENT_DIR_PATH, 'data')
 
-print ("=====INFO=====")
-print ("Ignore the follwing error message: ERROR:root:No wav file found in path: /dev/null/")
+print ("[INFO]: Ignore the follwing error message: ERROR:root:No wav file found in path: /dev/null/")
 
 class TestSpeakerRecognition(unittest.TestCase):
 
@@ -27,7 +26,7 @@ class TestSpeakerRecognition(unittest.TestCase):
         self.assertEqual(recog.dirpath, os.getcwd())
         self.assertEqual(recog.debug, False)
         self.assertEqual(recog.filepath, None)
-        self.assertEqual(recog.feature, ' -lpc')
+        self.assertEqual(recog.feature, ' -endp -lpc -cheb')
         self.assertEqual(recog.last_recognized_file, None)
         self.assertEqual(recog.last_trained_file, None)
 
@@ -37,7 +36,7 @@ class TestSpeakerRecognition(unittest.TestCase):
         self.assertEqual(recog.dirpath, os.path.abspath(DATA_DIR_PATH))
         self.assertEqual(recog.debug, False)
         self.assertEqual(recog.filepath, None)
-        self.assertEqual(recog.feature, ' -lpc')
+        self.assertEqual(recog.feature, ' -endp -lpc -cheb')
         self.assertEqual(recog.last_recognized_file, None)
         self.assertEqual(recog.last_trained_file, None)
 
@@ -148,11 +147,15 @@ class TestSpeakerRecognition(unittest.TestCase):
     def test_identify_recently_added_file(self):
         recog = recognition.SpeakerRecognizer(DATA_DIR_PATH)
         recog.speaker_name = 'Test'
+        recog.train_new_data() 
+        recog.last_trained_file = None
+        recog.speaker_name = 'Test2'
         recog.train_new_data()
         name = None
         name = recog.identify_speaker()
         self.assertNotEqual(name, None)
-        self.assertEqual(name, 'Test')
+        self.assertEqual(name[0], 'Test')
+        self.assertEqual(name[1], 'Test2')
 
     def test_identify_specified_file(self):
         recog = recognition.SpeakerRecognizer()
@@ -160,7 +163,7 @@ class TestSpeakerRecognition(unittest.TestCase):
         name = recog.identify_speaker(os.path.join(DATA_DIR_PATH,
                                                    'arctic_a0001.wav'))
         self.assertNotEqual(name, None)
-        self.assertEqual(name, 'Test')
+        self.assertEqual(name[0], 'Test')
         model = glob.glob('*.gzbin')
         self.assertTrue(os.path.isfile('./' + ''.join(model)))
         self.assertTrue(os.path.isfile('./speakers.txt'))
@@ -203,7 +206,7 @@ class TestSpeakerRecognition(unittest.TestCase):
 
     def test_no_wav_file_found_exception_identify(self):
         recog = recognition.SpeakerRecognizer('/dev/null/')
-        self.assertRaises(ValueError, recog.identify_speaker)
+        self.assertRaises(IOError, recog.identify_speaker)
 
     def test_no_speaker_db_found(self):
         recog = recognition.SpeakerRecognizer()
@@ -217,6 +220,11 @@ class TestSpeakerRecognition(unittest.TestCase):
         recog = recognition.SpeakerRecognizer(DATA_DIR_PATH)
         recog.speaker_name = 'Test'
         recog.train_new_data()
+        recog.last_trained_file = None
+        recog.speaker_name = 'Test2'
+        recog.train_new_data(os.path.join(DATA_DIR_PATH,
+                                                   'arctic_a0001.wav'))
+
         recog.identify_speaker()
         dictn = recog.get_speaker_scores()
         self.assertTrue(dictn)

@@ -11,8 +11,9 @@ class SpeakerPlugin(plugin.SpeechHandlerPlugin):
 
 def handle(self, text, mic):
     recog = recognition.SpeakerRecognizer('/home/pi/jasper-client/recordings/')
+    name = []
     name = recog.identify_speaker()
-    mic.say("Good morning " + name)
+    mic.say("Good morning " + name[0])
 
 
 def is_valid(self, text):

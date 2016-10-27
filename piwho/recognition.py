@@ -11,6 +11,7 @@ import shlex
 import time
 import logging
 import wave
+import audioop
 import re
 import multiprocessing as mp
 
@@ -64,7 +65,7 @@ class SpeakerRecognizer(object):
         self.scores = []
 
         #: set feature for MARF training and recognition
-        self.feature = ' -lpc'
+        self.feature = ' -endp -lpc -cheb'
 
     def train_new_data(self, filepath=None, speakername=None):
         """
@@ -159,7 +160,7 @@ class SpeakerRecognizer(object):
             # sanitize string
             data = (''.join(str(x) for x in reply))
             fi = data.encode('ascii', 'ignore').decode('unicode_escape')
-            print((re.sub("[b']", '', fi)))
+            print(re.sub("[b']", '', fi))
 
     def identify_speaker(self, audiofile=None):
         """
@@ -184,6 +185,10 @@ class SpeakerRecognizer(object):
         # constructor for extracting the wav file.
         if audiofile is None:
 
+
+        #check if there are minimum two speakers in database
+            if( len(self.get_speakers()) < 2 ):
+                raise IndexError("Insufficient speakers in database.")
             # add trailing backslash to path
             expand = os.path.join(self.dirpath, '')
             try:
@@ -199,10 +204,13 @@ class SpeakerRecognizer(object):
             name = self._start_subprocess('java ' + config.JAVA_MEM +
                                           '-jar ' + config.SPEAKER_RECOG_JAR +
                                           ' --ident ' + newest + self.feature)
-            self.scores = name[3:]
+            self.scores = name[4:]
             if not self.debug:
                 try:
-                    return str((name[2].split()[2]).decode('utf-8'))
+                    names = []
+                    names.append(str((name[2].split()[2]).decode('utf-8')))
+                    names.append(str((name[3].split()[3]).decode('utf-8')))
+                    return names
                 except IndexError:
                     logging.error('MARF execution failed.'
                                   ' Please set debug=True to print error'
@@ -212,7 +220,7 @@ class SpeakerRecognizer(object):
                 # sanitize string
                 data = (''.join(str(x) for x in name))
                 fi = data.encode('ascii', 'ignore').decode('unicode_escape')
-                print((re.sub("[b']", '', fi)))
+                print(re.sub("[b']", '', fi))
 
         # if audiofile is passed
         else:
@@ -225,10 +233,14 @@ class SpeakerRecognizer(object):
                                           '-jar ' + config.SPEAKER_RECOG_JAR +
                                           ' --ident ' + expand + self.feature)
 
-            self.scores = name[3:]
+            self.scores = name[4:]
             if not self.debug:
                 try:
-                    return str((name[2].split()[2]).decode('utf-8'))
+                    names = []
+                    names.append(str((name[2].split()[2]).decode('utf-8')))
+                    names.append(str((name[3].split()[3]).decode('utf-8')))
+                    return names
+
                 except IndexError:
                     logging.error('MARF execution failed.'
                                   ' Please set debug=True to print error'
@@ -237,7 +249,7 @@ class SpeakerRecognizer(object):
             else:
                 data = (''.join(str(x) for x in name))
                 fi = data.encode('ascii', 'ignore').decode('unicode_escape')
-                print((re.sub("[b']", '', fi)))
+                print(re.sub("[b']", '', fi))
 
 
     def get_speaker_scores(self):
@@ -254,7 +266,7 @@ class SpeakerRecognizer(object):
         Minimum the distance closer the speaker to the recognized file.
 
         :return: a dictionary
-        :rtype: dict
+        :rtype: dictr
         """
         strs = [str(self.scores[i]).strip().split(":")[1].replace("\\n'","")
                 for i, x in enumerate(self.scores)]
@@ -364,13 +376,34 @@ class SpeakerRecognizer(object):
         """
         convert wav into 8khz rate
         """
+        def convert(read,write):
+            write.setparams((1, 2, 8000, 0,'NONE', 'not compressed'))
+
+            o_fr = read.getframerate()
+            o_chnl = read.getnchannels()
+            t_fr = read.getnframes()
+            data = read.readframes(t_fr)
+            cnvrt = audioop.ratecv(data, 2, o_chnl,
+                                   o_fr, 8000, None)
+            if o_chnl != 1:
+                mono = audioop.tomono(cnvrt[0], 2, 1, 0)
+                write.writeframes(mono)
+            else:
+                write.writeframes(cnvrt[0])
+            read.close()
+            write.close()
+
         if dest is None:
             temp = src + '.temp'
             os.rename(src, temp)
-            self._start_subprocess('sox ' + temp + ' -r 8000 ' + src)
+            read = wave.open(temp, 'r')
+            write = wave.open(src, 'w')
+            convert(read, write)
             os.remove(temp)
         else:
-            self._start_subprocess('sox ' + src + ' -r 8000 ' + dest)
+            read = wave.open(src, 'r')
+            write = wave.open(dest, 'w')
+            convert(read, write)
 
     def _is_good_wave(self, filename):
         """
@@ -426,35 +459,47 @@ class SpeakerRecognizer(object):
 
         Options (one or more of the following):
 
-        Preprocessing:
+		Preprocessing:
 
-            -raw          - no preprocessing
-            -norm         - use just normalization, no filtering
-            -low          - use low-pass filter
-            -high         - use high-pass filter
-            -boost        - use high-frequency-boost preprocessor
-            -band         - use band-pass filter
+        -silence      - remove silence (can be combined with any of the below)
+        -noise        - remove noise (can be combined with any of the below)
+        -raw          - no preprocessing
+        -norm         - use just normalization, no filtering
+        -low          - use low-pass FFT filter
+        -high         - use high-pass FFT filter
+        -boost        - use high-frequency-boost FFT preprocessor
+        -band         - use band-pass FFT filter
+        -bandstop     - use band-stop FFT filter
+        -endp         - use endpointing
+        -lowcfe       - use low-pass CFE filter
+        -highcfe      - use high-pass CFE filter
+        -bandcfe      - use band-pass CFE filter
+        -bandstopcfe  - use band-stop CFE filter
 
-        Feature Extraction:
+		Feature Extraction:
 
-            -lpc          - use LPC
-            -fft          - use FFT
-            -minmax       - use Min/Max Amplitudes
-            -randfe       - use random feature extraction
+ 		-lpc          - use LPC
+ 		-fft          - use FFT
+ 		-minmax       - use Min/Max Amplitudes
+ 		-randfe       - use random feature extraction
+ 		-aggr         - use aggregated FFT+LPC feature extraction
 
-        Classification:
+		Classification:
 
-            -cheb         - use Chebyshev Distance
-            -eucl         - use Euclidean Distance
-            -mink         - use Minkowski Distance
-            -diff         - use Diff-Distance
-            -randcl       - use random classification
+ 		-cheb         - use Chebyshev Distance
+ 		-eucl         - use Euclidean Distance
+ 		-mink         - use Minkowski Distance
+ 		-diff         - use Diff-Distance
+ 		-zipf         - use Zipf's Law-based classifier
+ 		-randcl       - use random classification
+ 		-hamming      - use Hamming Distance
+ 		-cos          - use Cosine Similarity Measure
 
         Use set_feature_option() to use any of these features.
         Example: set_feature_options('-norm -lpc -cheb')
         Changing options will affect the recognition accuracy.
         See marf Manual:
-        http://marf.sourceforge.net/docs/marf/0.3.0.5/report.pdf    """
+        http://marf.sourceforge.net/docs/marf/0.3.0.6/report.pdf    """
         print(features)
 
 

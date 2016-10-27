@@ -16,12 +16,13 @@ class SpeakerPlugin(plugin.SpeechHandlerPlugin):
 
 def handle(self, text, mic):
     recog = recognition.SpeakerRecognizer('/home/pi/jasper-client/recordings/')
+    name = []
     name = recog.identify_speaker()
 
-    if name == 'Aditya':
+    if name[0] == 'Aditya':
 	mic.say("Good morning "+ name)
     else:
-	if name == 'unknown':
+	if name[0] == 'unknown':
 		gen = gd.identify_gender(recog.get_recently_added_file())
 		if gen == 'M':
 			mic.say("Good morning sir")

@@ -10,21 +10,21 @@ def blink(pin):
     GPIO.output(pin,GPIO.LOW)
     time.sleep(1)
 
-def authorize():
+def identify():
     recog = recognition.SpeakerRecognizer('./recordings/')
+    friends = ['Abhishek', 'Ankit', 'Abhinav']
     name = recog.identify_speaker()
-    if name == 'ABCD':
-        return True
-    else:
-        return False
+    if name[0] in names:
+        for i in range(10):
+            blink(11)
+    elif name[1] in friends:
+        for in range(10):
+            blink(12) 
 
 
 if __name__ == "__main__":
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(11,GPIO.OUT)
-    if authorize():
-        for i in range(5):
-            blink(11)
-
+    identify()
     GPIO.cleanup()
    

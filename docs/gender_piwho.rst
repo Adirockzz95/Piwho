@@ -21,8 +21,9 @@ Combine gender detection with speaker recognition:
     >> from gdetect import genderdetect as gd
     >> # use file from current directory
     >> recog = recognition.SpeakerRecognizer()
-    >> # recognize speaker 
+    >> # recognize speaker
+    >> name = [] 
     >> name = recog.identify_speaker()
     >> # pass the same audio file for gender detection
     >> gender = gd.identify_gender(recog.get_recently_added_file())
-    >> print name + ':' + gender
+    >> print name[0] + ':' + gender
