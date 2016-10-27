@@ -127,7 +127,7 @@ project.
 -  `ALIZE <http://mistral.univ-avignon.fr/>`__
 -  `Shout <http://shout-toolkit.sourceforge.net/use_case_diarization.html>`__
 -  `MARF
-   manual <http://marf.sourceforge.net/docs/marf/0.3.0.5/report.pdf>`__
+   manual <http://marf.sourceforge.net/docs/marf/0.3.0.6/report.pdf>`__
 -  `LIUM
    site <http://www-lium.univ-lemans.fr/diarization/doku.php/welcome>`__
 
