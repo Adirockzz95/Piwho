@@ -459,35 +459,47 @@ class SpeakerRecognizer(object):
 
         Options (one or more of the following):
 
-        Preprocessing:
+		Preprocessing:
 
-            -raw          - no preprocessing
-            -norm         - use just normalization, no filtering
-            -low          - use low-pass filter
-            -high         - use high-pass filter
-            -boost        - use high-frequency-boost preprocessor
-            -band         - use band-pass filter
+        -silence      - remove silence (can be combined with any of the below)
+        -noise        - remove noise (can be combined with any of the below)
+        -raw          - no preprocessing
+        -norm         - use just normalization, no filtering
+        -low          - use low-pass FFT filter
+        -high         - use high-pass FFT filter
+        -boost        - use high-frequency-boost FFT preprocessor
+        -band         - use band-pass FFT filter
+        -bandstop     - use band-stop FFT filter
+        -endp         - use endpointing
+        -lowcfe       - use low-pass CFE filter
+        -highcfe      - use high-pass CFE filter
+        -bandcfe      - use band-pass CFE filter
+        -bandstopcfe  - use band-stop CFE filter
 
-        Feature Extraction:
+		Feature Extraction:
 
-            -lpc          - use LPC
-            -fft          - use FFT
-            -minmax       - use Min/Max Amplitudes
-            -randfe       - use random feature extraction
+ 		-lpc          - use LPC
+ 		-fft          - use FFT
+ 		-minmax       - use Min/Max Amplitudes
+ 		-randfe       - use random feature extraction
+ 		-aggr         - use aggregated FFT+LPC feature extraction
 
-        Classification:
+		Classification:
 
-            -cheb         - use Chebyshev Distance
-            -eucl         - use Euclidean Distance
-            -mink         - use Minkowski Distance
-            -diff         - use Diff-Distance
-            -randcl       - use random classification
+ 		-cheb         - use Chebyshev Distance
+ 		-eucl         - use Euclidean Distance
+ 		-mink         - use Minkowski Distance
+ 		-diff         - use Diff-Distance
+ 		-zipf         - use Zipf's Law-based classifier
+ 		-randcl       - use random classification
+ 		-hamming      - use Hamming Distance
+ 		-cos          - use Cosine Similarity Measure
 
         Use set_feature_option() to use any of these features.
         Example: set_feature_options('-norm -lpc -cheb')
         Changing options will affect the recognition accuracy.
         See marf Manual:
-        http://marf.sourceforge.net/docs/marf/0.3.0.5/report.pdf    """
+        http://marf.sourceforge.net/docs/marf/0.3.0.6/report.pdf    """
         print(features)
 
 
