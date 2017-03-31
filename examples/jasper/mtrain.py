@@ -9,7 +9,7 @@ Train model separately and just copy-paste the .gzbin model and speakers.txt int
 """
 
 #import piwho library
-from piwho import recogntion
+from piwho import recognition
 import re
 
 WORDS = ["TRAIN"]
