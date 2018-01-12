@@ -5,13 +5,13 @@ v1.3.2 - 2018-1-12
 -----
 Fixed
 -----
- - Bug fixed: Model training doesn't work for more than 9 speakers.
+- Bug fixed: Model training doesn't work for more than 9 speakers.
 
 -----
 Added
 -----
- - Supports Python 3.6
- - batch training example
+- Supports Python 3.6
+- batch training example
 
 
 =============
@@ -20,8 +20,8 @@ v1.3.1 - 2016-10-26
 -----
 Fixed
 -----
- - Wrong PKG-INFO uploaded on pypi, nothing changed in source code.
- - On Github the version is still 1.3.0
+- Wrong PKG-INFO uploaded on pypi, nothing changed in source code.
+- On Github the version is still 1.3.0
 
 
 ===================
