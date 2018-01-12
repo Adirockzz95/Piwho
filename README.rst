@@ -41,7 +41,7 @@ Tested on
 
 -  Ubuntu 15.10
 -  Pi 1 model B (raspbian wheezy, jessie)
--  Pi 2 model B (raspbian wheezy, jessie)
+-  Pi 2 model B (raspbian wheezy, jessie, stretch)
 -  CHIP
 
 Installation
