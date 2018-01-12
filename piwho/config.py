@@ -1,6 +1,6 @@
 import os
 
-__VERSION__ = '1.3.0'
+__VERSION__ = '1.3.2'
 
 JAR_PATH = 'marf'
 MARF_DEFAULT = os.path.join(os.path.dirname(__file__), JAR_PATH,
