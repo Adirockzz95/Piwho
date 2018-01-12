@@ -2,5 +2,4 @@ include README.rst
 include piwho/marf/*.jar
 include NOTICE
 include requirements.txt
-include TODO
 include LICENSE
