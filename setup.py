@@ -6,7 +6,7 @@ from piwho import config
 curr = os.path.abspath(os.path.dirname(__file__))
 
 
-with open(os.path.join(curr,'readme.rst')) as f:
+with open(os.path.join(curr,'README.rst')) as f:
     description = f.read()
 
 setup(
