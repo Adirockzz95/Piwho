@@ -335,16 +335,15 @@ class SpeakerRecognizer(object):
                         curr_id = '0'
 
                     # if not then append new entry at the end of the file
-                    # since the ID length could vary (ex: 9,10,100), we traverse the lastline to form
-                    # a digit string until we hit ','
+                    # split lastline to extract ID
                     # new entry format : ID,speakername,filename|
                     else:
-                        curr_id = ''
-                        for c in lastline:
-                            if c == ',':
-                                break
-                            else:
-                                curr_id+=c
+                        curr_id = lastline.split(',')[0]
+                        #for c in lastline:
+                        #    if c == ',':
+                        #        break
+                        #    else:
+                        #        curr_id+=c
 
                         curr_id = str(int(curr_id)+1)
                     new_entry = (curr_id + ',' + speakername +
